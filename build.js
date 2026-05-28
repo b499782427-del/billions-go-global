@@ -160,7 +160,8 @@ function build() {
   fs.mkdirSync(PUBLIC, { recursive: true });
 
   const allPosts = getAllPosts();
-  const categories = [...new Set(allPosts.map((p) => p.category))];
+  const allCategories = ["shopify-deals", "hosting-coupons", "design-hacks"];
+  const categories = [...new Set([...allCategories, ...allPosts.map((p) => p.category)])];
 
   // ----- 拷贝静态资源 -----
   copyAssets();

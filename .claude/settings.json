@@ -30,7 +30,19 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git remote *)",
-      "Bash(GIT_SSH_COMMAND=\"ssh -i /Users/a123123/Desktop/Billions Go Global/.sshkey -o StrictHostKeyChecking=no\" git push deploy master)"
+      "Bash(GIT_SSH_COMMAND=\"ssh -i /Users/a123123/Desktop/Billions Go Global/.sshkey -o StrictHostKeyChecking=no\" git push deploy master)",
+      "Bash(GIT_SSH_COMMAND=\"ssh -i /Users/a123123/Desktop/Billions Go Global/.sshkey -o StrictHostKeyChecking=no\" git push deploy main:master)",
+      "Bash(GIT_SSH_COMMAND='ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no -o ProxyCommand=none' git push deploy main:master)",
+      "Bash(curl -s http://45.76.77.167/)",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"ls -la /var/www/saassavvyhub/ && echo '---' && ls /var/www/saassavvyhub/shopify-deals/\")",
+      "Bash(curl -s --max-time 5 http://45.76.77.167/)",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"systemctl status nginx | head -5 && echo '---' && ss -tlnp | grep -E '80|443' && echo '---' && iptables -L INPUT -n 2>/dev/null | head -15 || ufw status 2>/dev/null\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"ufw allow 80/tcp && ufw allow 443/tcp && ufw allow 22/tcp && ufw status\")",
+      "Bash(curl -s --max-time 10 http://45.76.77.167/)",
+      "Bash(dig +short saassavvyhub.com A)",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"certbot --nginx -d saassavvyhub.com -d www.saassavvyhub.com --non-interactive --agree-tos --email info@saassavvyhub.com --redirect 2>&1\")",
+      "Bash(curl -sL --max-time 10 https://saassavvyhub.com/)",
+      "Bash(curl -sI --max-time 10 http://saassavvyhub.com/)"
     ]
   }
 }
