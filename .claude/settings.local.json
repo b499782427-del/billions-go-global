@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(hugo version *)",
+      "Bash(sw_vers --productName)",
+      "Bash(curl -L \"https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_darwin-arm64.tar.gz\" -o /tmp/hugo.tar.gz)",
+      "Bash(tar -xzf /tmp/hugo.tar.gz -C /tmp)",
+      "Bash(sudo mv /tmp/hugo /usr/local/bin/hugo)",
+      "Bash(curl -sL \"https://api.github.com/repos/gohugoio/hugo/releases/latest\")",
+      "Bash(curl -L -o /tmp/hugo.tar.gz \"https://github.com/gohugoio/hugo/releases/download/v0.139.4/hugo_extended_0.139.4_darwin-arm64.tar.gz\")",
+      "Read(//private/tmp/**)",
+      "Bash(go version *)",
+      "WebFetch(domain:github.com)",
+      "Bash(which npm *)",
+      "Read(//usr/local/bin/**)",
+      "Bash(npm install *)",
+      "Bash(curl -L -o /tmp/Docker.dmg \"https://desktop.docker.com/mac/main/arm64/Docker.dmg\")"
+    ]
+  }
+}

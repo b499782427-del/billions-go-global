@@ -1,0 +1,9 @@
+{
+  "name": "saassavvyhub",
+  "version": "1.0.0",
+  "description": "SaaS Savvy Hub - static blog",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && npx serve public"
+  }
+}

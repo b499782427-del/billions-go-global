@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -L -o /tmp/hugo.tar.gz \"https://github.com/gohugoio/hugo/releases/download/v0.140.2/hugo_extended_0.140.2_darwin-arm64.tar.gz\")",
+      "Bash(curl -sL \"https://github.com/gohugoio/hugo/releases\")",
+      "Bash(curl -L -o /tmp/hugo.tar.gz \"https://github.com/gohugoio/hugo/releases/download/v0.162.0/hugo_extended_0.162.0_darwin-arm64.tar.gz\")",
+      "Bash(curl -sL \"https://github.com/gohugoio/hugo/releases/tag/v0.162.0\")",
+      "Bash(curl -sL \"https://github.com/gohugoio/hugo/releases/download/v0.162.0/\")",
+      "Bash(curl -v -L \"https://github.com/gohugoio/hugo/releases/download/v0.162.0/hugo_extended_0.162.0_darwin-arm64.tar.gz\")",
+      "Bash(curl -sL \"https://github.com/gohugoio/hugo/releases/expanded_assets/v0.162.0\")",
+      "Bash(curl -sL \"https://github.com/gohugoio/hugo/releases.atom\")",
+      "Bash(npm config *)",
+      "Bash(npm ping *)",
+      "Bash(curl -L -o /tmp/Docker.dmg \"https://desktop.docker.com/mac/main/arm64/Docker.dmg\" 2>&1 & *)",
+      "Read(//tmp/**)",
+      "Bash(npm init *)",
+      "Bash(sudo chown -R 501:20 \"/Users/a123123/.npm\")",
+      "Bash(node build.js)",
+      "Bash(npx serve *)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(sshpass -p '2uT*ctd3EV\\)o' ssh -o StrictHostKeyChecking=no root@45.76.77.167 \"uname -m && cat /etc/os-release | head -2 && whoami\")",
+      "Bash(python3 -c \"import paramiko; print\\('paramiko available'\\)\")",
+      "Bash(ssh-keygen -t ed25519 -f .sshkey -N \"\" -q)",
+      "Bash(python3)",
+      "Bash(kill %1)",
+      "Bash(ssh -o StrictHostKeyChecking=no -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"uname -m && cat /etc/os-release | head -3 && echo '---' && df -h / | tail -1 && echo '---' && free -h | head -2\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"apt update -qq && apt install -y -qq nginx git certbot python3-certbot-nginx 2>&1 | tail -5\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 bash)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git remote *)",
+      "Bash(GIT_SSH_COMMAND=\"ssh -i /Users/a123123/Desktop/Billions Go Global/.sshkey -o StrictHostKeyChecking=no\" git push deploy master)"
+    ]
+  }
+}
