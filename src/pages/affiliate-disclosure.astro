@@ -1,0 +1,52 @@
+<!-- Affiliate Disclosure -->
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import type { Crumb } from '../components/seo/BreadcrumbSchema.astro';
+
+const breadcrumbs: Crumb[] = [{ name: 'Home', url: '/' }, { name: 'Affiliate Disclosure', url: '/affiliate-disclosure/' }];
+---
+<BaseLayout
+  title="Affiliate Disclosure"
+  description="How AI Tools Review Hub uses affiliate links and earns commissions."
+  path="/affiliate-disclosure/"
+  breadcrumbs={breadcrumbs}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span><span>Affiliate Disclosure</span>
+  </nav>
+
+  <h1>Affiliate Disclosure</h1>
+
+  <div class="post-content" style="margin-top:var(--space-xl)">
+    <h2>FTC Compliance</h2>
+    <p>
+      In compliance with the FTC guidelines, please assume the following about links and posts on this site:
+    </p>
+    <ul>
+      <li>Some links on AI Tools Review Hub are affiliate links.</li>
+      <li>If you click an affiliate link and make a purchase, we may receive a small commission at no additional cost to you.</li>
+    </ul>
+
+    <h2>What This Means For You</h2>
+    <ul>
+      <li><strong>Price:</strong> You never pay more. In some cases, our affiliate links may include exclusive discounts.</li>
+      <li><strong>Objectivity:</strong> We only recommend tools we have personally tested and believe deliver value. Affiliate relationships do not influence our ratings or recommendations.</li>
+    </ul>
+
+    <h2>Affiliate Programs We Participate In</h2>
+    <p>We may participate in:</p>
+    <ul>
+      <li>PartnerStack</li>
+      <li>Impact / Impact Radius</li>
+      <li>ShareASale</li>
+      <li>Direct vendor affiliate programs</li>
+      <li>AppSumo affiliate program</li>
+    </ul>
+
+    <h2>How We Use Earnings</h2>
+    <p>Affiliate commissions help fund hosting, tool subscriptions for testing, and content creation. Our goal is to build a sustainable, independent review platform.</p>
+
+    <h2>Questions?</h2>
+    <p>Contact <strong>info@saassavvyhub.com</strong></p>
+  </div>
+</BaseLayout>

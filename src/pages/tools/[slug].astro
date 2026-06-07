@@ -1,0 +1,187 @@
+<!-- Tool Detail Page -->
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import ArticleSchema from '../../components/seo/ArticleSchema.astro';
+import FAQSchema from '../../components/seo/FAQSchema.astro';
+import ReviewSchema from '../../components/seo/ReviewSchema.astro';
+import SoftwareAppSchema from '../../components/seo/SoftwareAppSchema.astro';
+import { formatDate, calcReadingTime } from '../../lib/utils';
+import { categoryMap } from '../../content/config';
+import type { Crumb } from '../../components/seo/BreadcrumbSchema.astro';
+import type { FAQItem } from '../../components/seo/FAQSchema.astro';
+
+export async function getStaticPaths() {
+  const tools = await getCollection('tools');
+  return tools.map(t => ({ params: { slug: t.slug }, props: { tool: t } }));
+}
+
+const { tool } = Astro.props;
+const { data, body } = tool;
+
+const avgRating = (
+  (data.rating_features + data.rating_pricing + data.rating_usability + data.rating_fit) / 4
+);
+
+const category = categoryMap[data.category];
+const catSlug = data.category;
+
+// Extract FAQ from content (look for ## FAQ section)
+const faqMatch = body.match(/## FAQ\n([\s\S]*?)(?=\n## |\n---$|$)/);
+const faqs: FAQItem[] = [];
+if (faqMatch) {
+  const faqText = faqMatch[1];
+  const qaRegex = /\n### (.+)\n([\s\S]*?)(?=\n### |$)/g;
+  let m;
+  while ((m = qaRegex.exec(faqText)) !== null) {
+    faqs.push({ question: m[1].trim(), answer: m[2].trim() });
+  }
+}
+
+const ratingLabels = { features: 'Features', pricing: 'Pricing', usability: 'Usability', fit: 'Best For' };
+const ratings = [
+  { key: 'features', value: data.rating_features, label: ratingLabels.features },
+  { key: 'pricing', value: data.rating_pricing, label: ratingLabels.pricing },
+  { key: 'usability', value: data.rating_usability, label: ratingLabels.usability },
+  { key: 'fit', value: data.rating_fit, label: ratingLabels.fit },
+];
+
+const readingTime = calcReadingTime(body);
+const dateISO = data.date.toISOString();
+const dateUpdatedISO = data.updated ? data.updated.toISOString() : dateISO;
+
+const breadcrumbs: Crumb[] = [
+  { name: 'Home', url: '/' },
+  { name: category?.name || catSlug, url: `/categories/${catSlug}/` },
+  { name: data.name, url: `/tools/${tool.slug}/` },
+];
+
+// Function to generate stars HTML
+function stars(rating: number) {
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5 ? 1 : 0;
+  const empty = 5 - full - half;
+  return (
+    '<span class="stars">' +
+    '<span class="star filled">★</span>'.repeat(full) +
+    (half ? '<span class="star half">★</span>' : '') +
+    '<span class="star">☆</span>'.repeat(empty) +
+    '</span>'
+  );
+}
+---
+<BaseLayout
+  title={`${data.name} Review`}
+  description={`${data.name}: ${data.tagline}. Read our in-depth review covering features, pricing, pros, cons, and alternatives.`}
+  path={`/tools/${tool.slug}/`}
+  ogType="article"
+  datePublished={dateISO}
+  dateModified={dateUpdatedISO}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- SEO Schemas -->
+  <ArticleSchema
+    title={`${data.name} Review — Honest AI Tool Assessment`}
+    description={data.tagline}
+    url={`/tools/${tool.slug}/`}
+    datePublished={dateISO}
+    dateModified={dateUpdatedISO}
+    imageUrl={data.image ?? undefined}
+  />
+  {faqs.length > 0 && <FAQSchema faqs={faqs} />}
+  <ReviewSchema
+    name={data.name}
+    description={data.tagline}
+    url={`/tools/${tool.slug}/`}
+    rating={avgRating}
+  />
+  <SoftwareAppSchema
+    name={data.name}
+    description={data.tagline}
+    url={`/tools/${tool.slug}/`}
+    rating={avgRating}
+    category={category?.name ?? catSlug}
+    offersUrl={data.affiliate_url?.toString() ?? undefined}
+  />
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href={`/categories/${catSlug}/`}>{category?.name || catSlug}</a><span class="sep">/</span>
+    <span>{data.name}</span>
+  </nav>
+
+  <!-- Tool Header -->
+  <header class="tool-header">
+    <div class="tool-logo">
+      {data.image
+        ? <img src={data.image} alt={data.name} width="72" height="72" />
+        : category?.icon || '🤖'
+      }
+    </div>
+    <div class="tool-info">
+      <h1>{data.name} Review</h1>
+      <p class="tagline">{data.tagline}</p>
+    </div>
+  </header>
+
+  <!-- CTA Buttons -->
+  <div class="cta-group">
+    {data.affiliate_url && (
+      <a href={data.affiliate_url.toString()} rel="nofollow sponsored" target="_blank" class="cta-affiliate">
+        {data.affiliate_text} →
+      </a>
+    )}
+    {data.website && (
+      <a href={data.website.toString()} rel="noopener" target="_blank" class="cta-website">
+        Visit Website
+      </a>
+    )}
+    {data.coupon && (
+      <span style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1rem;border:1px dashed var(--c-green);border-radius:var(--radius-md);font-size:var(--fs-sm);color:var(--c-green)">
+        🎟️ Code: <strong>{data.coupon}</strong>
+      </span>
+    )}
+  </div>
+
+  <!-- Rating Grid -->
+  <div class="rating-grid">
+    {ratings.map(r => (
+      <div class="rating-item">
+        <div class="r-score">{r.value}</div>
+        <div class="r-label">{r.label}</div>
+        <Fragment set:html={stars(r.value)} />
+      </div>
+    ))}
+  </div>
+
+  <!-- Affiliate Disclosure -->
+  {data.affiliate_url && (
+    <div class="disclosure">
+      ⓘ When you click our links and make a purchase, we may earn a commission at no extra cost to you.
+    </div>
+  )}
+
+  <!-- Article Content -->
+  <div class="post-content">
+    <Fragment set:html={body} />
+  </div>
+
+  <!-- Verdict CTA -->
+  <div class="verdict-card">
+    <p class="v-title">🏆 Our Verdict: {data.name}</p>
+    <p style="color:var(--c-text-2);margin-bottom:var(--space-md)">
+      Rating: <strong>{avgRating.toFixed(1)}/5</strong> · Category: {category?.name || catSlug} · {readingTime} min read
+    </p>
+    {data.affiliate_url && (
+      <a href={data.affiliate_url.toString()} rel="nofollow sponsored" target="_blank" class="cta-affiliate">
+        {data.affiliate_text} →
+      </a>
+    )}
+  </div>
+
+  <!-- Back Link -->
+  <p style="margin-top:2rem">
+    <a href={`/categories/${catSlug}/`}>← Back to {category?.name || catSlug}</a>
+  </p>
+</BaseLayout>

@@ -42,7 +42,22 @@
       "Bash(dig +short saassavvyhub.com A)",
       "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" root@45.76.77.167 \"certbot --nginx -d saassavvyhub.com -d www.saassavvyhub.com --non-interactive --agree-tos --email info@saassavvyhub.com --redirect 2>&1\")",
       "Bash(curl -sL --max-time 10 https://saassavvyhub.com/)",
-      "Bash(curl -sI --max-time 10 http://saassavvyhub.com/)"
+      "Bash(curl -sI --max-time 10 http://saassavvyhub.com/)",
+      "Bash(curl -sL --max-time 10 -o /dev/null -w '%{http_code}' https://saassavvyhub.com__TRACKED_VAR__)",
+      "Bash(npm --version)",
+      "Bash(curl -sI --max-time 10 https://saassavvyhub.com/)",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@45.76.77.167 \"echo 'SSH OK' && nginx -v 2>&1 && systemctl status nginx 2>&1 | head -5 && ls /var/www/saassavvyhub/ 2>&1 | head -10\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no root@45.76.77.167 \"cat /etc/nginx/sites-available/saassavvyhub.com 2>/dev/null || cat /etc/nginx/sites-enabled/default 2>/dev/null || cat /etc/nginx/nginx.conf 2>/dev/null | head -50\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no root@45.76.77.167 \"cat /var/repo/saassavvyhub.git/hooks/post-receive 2>/dev/null\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no root@45.76.77.167 \"ls /etc/nginx/sites-enabled/ 2>/dev/null && cat /etc/nginx/sites-enabled/* 2>/dev/null; ls /etc/nginx/conf.d/ 2>/dev/null && cat /etc/nginx/conf.d/*.conf 2>/dev/null\")",
+      "Bash(ssh -i \"/Users/a123123/Desktop/Billions Go Global/.sshkey\" -o StrictHostKeyChecking=no -o ConnectTimeout=5 root@45.76.77.167 \"certbot certificates 2>&1 && df -h / && free -h\")",
+      "Bash(npm cache *)",
+      "Bash(npm run *)",
+      "Bash(rm -rf public)",
+      "Bash(mv static *)",
+      "Bash(mkdir -p static/styles)",
+      "Bash(mkdir -p static/favicon.svg)",
+      "Bash(rm -rf static/favicon.svg)"
     ]
   }
 }

@@ -1,9 +1,14 @@
 {
-  "name": "saassavvyhub",
+  "name": "ai-tools-review-hub",
   "version": "1.0.0",
-  "description": "SaaS Savvy Hub - static blog",
+  "type": "module",
+  "description": "AI Tools Review Hub - Lightweight affiliate review site",
   "scripts": {
-    "build": "node build.js",
-    "dev": "node build.js && npx serve public"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
   }
 }

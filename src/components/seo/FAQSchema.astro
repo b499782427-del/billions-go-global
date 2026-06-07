@@ -1,0 +1,26 @@
+<!-- FAQ Schema -->
+---
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+const { faqs = [] } = Astro.props as { faqs: FAQItem[] };
+if (faqs.length === 0) return;
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {faqs.map((faq, i) => `
+    {
+      "@type": "Question",
+      "name": ${JSON.stringify(faq.question)},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ${JSON.stringify(faq.answer)}
+      }
+    }${i < faqs.length - 1 ? ',' : ''}`).join('\n')}
+  ]
+}
+</script>

@@ -1,0 +1,40 @@
+<!-- Review Schema -->
+---
+export interface Props {
+  name: string;
+  description: string;
+  url: string;
+  rating: number;
+  bestRating?: number;
+  worstRating?: number;
+  reviewCount?: number;
+}
+const {
+  name, description, url, rating,
+  bestRating = 5, worstRating = 0,
+  reviewCount = 1,
+} = Astro.props;
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "name": {`Review: ${name}`},
+  "description": {description},
+  "url": {"https://saassavvyhub.com" + url},
+  "itemReviewed": {
+    "@type": "SoftwareApplication",
+    "name": {name}
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "AI Tools Review Hub"
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": {rating},
+    "bestRating": {bestRating},
+    "worstRating": {worstRating}
+  }
+}
+</script>

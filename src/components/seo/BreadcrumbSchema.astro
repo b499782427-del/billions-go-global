@@ -1,0 +1,23 @@
+<!-- Breadcrumb Schema -->
+---
+export interface Crumb {
+  name: string;
+  url: string;
+}
+const { crumbs = [] } = Astro.props as { crumbs: Crumb[] };
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {crumbs.map((c, i) => `
+    {
+      "@type": "ListItem",
+      "position": ${i + 1},
+      "name": ${JSON.stringify(c.name)},
+      "item": "https://saassavvyhub.com${c.url}"
+    }${i < crumbs.length - 1 ? ',' : ''}`).join('\n')}
+  ]
+}
+</script>

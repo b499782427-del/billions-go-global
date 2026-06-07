@@ -1,0 +1,59 @@
+<!-- Latest Tool Reviews List -->
+---
+import { getCollection } from 'astro:content';
+import { formatDate, calcReadingTime } from '../../lib/utils';
+import { categoryMap } from '../../content/config';
+
+const allTools = await getCollection('tools');
+const latest = allTools
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .slice(0, 20);
+---
+<section class="section" id="latest">
+  <div class="section-header">
+    <h2 class="section-title">Latest Reviews</h2>
+    <a href="#categories" style="font-size:var(--fs-sm);color:var(--c-text-3)">View all →</a>
+  </div>
+  <div class="tool-list">
+    {latest.map(tool => {
+      const avgRating = (
+        (tool.data.rating_features +
+         tool.data.rating_pricing +
+         tool.data.rating_usability +
+         tool.data.rating_fit) / 4
+      ).toFixed(1);
+
+      const cat = categoryMap[tool.data.category];
+      return (
+        <article class="tool-card">
+          <div class="tool-img">
+            {tool.data.image
+              ? <img src={tool.data.image} alt={tool.data.name} loading="lazy" width="48" height="48" />
+              : <span>{cat?.icon || '🤖'}</span>
+            }
+          </div>
+          <div class="tool-body">
+            <div class="tool-name">
+              <a href={`/tools/${tool.slug}/`}>{tool.data.name}</a>
+            </div>
+            <div class="tool-tagline">{tool.data.tagline}</div>
+            <div class="tool-meta">
+              <span>{cat?.name || tool.data.category}</span>
+              <span>·</span>
+              <span>{formatDate(tool.data.date)}</span>
+              {tool.body && <><span>·</span><span>{calcReadingTime(tool.body)} min read</span></>}
+            </div>
+          </div>
+          <div class="tool-rating">
+            <span class="rating-score">{avgRating}</span>
+          </div>
+        </article>
+      );
+    })}
+    {latest.length === 0 && (
+      <p style="text-align:center;color:var(--c-text-3);padding:var(--space-2xl) 0">
+        Reviews coming soon — we're testing the best AI tools right now.
+      </p>
+    )}
+  </div>
+</section>

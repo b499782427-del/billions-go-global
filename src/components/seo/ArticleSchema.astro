@@ -1,0 +1,46 @@
+<!-- Article Schema -->
+---
+export interface Props {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+  imageUrl?: string;
+}
+const {
+  title, description, url, datePublished,
+  dateModified = datePublished,
+  authorName = 'AI Tools Review Hub',
+  imageUrl = 'https://saassavvyhub.com/og-default.png',
+} = Astro.props;
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {title},
+  "description": {description},
+  "url": {"https://saassavvyhub.com" + url},
+  "datePublished": {datePublished},
+  "dateModified": {dateModified},
+  "author": {
+    "@type": "Organization",
+    "name": {authorName}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AI Tools Review Hub",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://saassavvyhub.com/favicon.svg"
+    }
+  },
+  "image": {imageUrl},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {"https://saassavvyhub.com" + url}
+  }
+}
+</script>

@@ -1,0 +1,43 @@
+<!-- SoftwareApplication Schema -->
+---
+export interface Props {
+  name: string;
+  description: string;
+  url: string;
+  rating: number;
+  price?: string;
+  category?: string;
+  operatingSystem?: string;
+  offersUrl?: string;
+}
+const {
+  name, description, url, rating,
+  price = 'Freemium',
+  category = 'AI Software',
+  operatingSystem = 'Web',
+  offersUrl,
+} = Astro.props;
+---
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": {name},
+  "description": {description},
+  "url": {"https://saassavvyhub.com" + url},
+  "applicationCategory": {category},
+  "operatingSystem": {operatingSystem},
+  "offers": {
+    "@type": "Offer",
+    "price": {price},
+    "priceCurrency": "USD"${offersUrl ? `,\n    "url": "${offersUrl}"` : ''}
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {rating},
+    "bestRating": 5,
+    "worstRating": 0,
+    "ratingCount": 1
+  }
+}
+</script>

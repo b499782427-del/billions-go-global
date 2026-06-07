@@ -1,0 +1,95 @@
+<!-- Category Listing Page -->
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { formatDate, calcReadingTime, getAllCategorySlugs } from '../../lib/utils';
+import { categoryMap } from '../../content/config';
+import type { Crumb } from '../../components/seo/BreadcrumbSchema.astro';
+
+export async function getStaticPaths() {
+  const slugs = getAllCategorySlugs();
+  return slugs.map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const category = categoryMap[slug!];
+
+// Invalid category → 404
+if (!category) {
+  return new Response(null, { status: 404 });
+}
+
+const allTools = await getCollection('tools');
+const toolsInCategory = allTools
+  .filter(t => t.data.category === slug)
+  .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0));
+
+const breadcrumbs: Crumb[] = [
+  { name: 'Home', url: '/' },
+  { name: category.name, url: `/categories/${slug}/` },
+];
+---
+<BaseLayout
+  title={`Best ${category.name} Tools`}
+  description={`Find the best ${category.name.toLowerCase()} tools. ${category.description}. Expert reviews and comparisons.`}
+  path={`/categories/${slug}/`}
+  ogType="website"
+  breadcrumbs={breadcrumbs}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <span>{category.name}</span>
+  </nav>
+
+  <header style="margin-bottom:var(--space-xl)">
+    <h1 style="display:flex;align-items:center;gap:0.5rem">
+      <span>{category.icon}</span> {category.name}
+    </h1>
+    <p style="color:var(--c-text-2);font-size:var(--fs-lg);margin-top:var(--space-sm)">{category.description}</p>
+  </header>
+
+  <div class="tool-list">
+    {toolsInCategory.map(tool => {
+      const avgRating = (
+        (tool.data.rating_features +
+         tool.data.rating_pricing +
+         tool.data.rating_usability +
+         tool.data.rating_fit) / 4
+      ).toFixed(1);
+
+      return (
+        <article class="tool-card">
+          <div class="tool-img">
+            {tool.data.image
+              ? <img src={tool.data.image} alt={tool.data.name} loading="lazy" width="48" height="48" />
+              : <span>{category.icon}</span>
+            }
+          </div>
+          <div class="tool-body">
+            <div class="tool-name">
+              <a href={`/tools/${tool.slug}/`}>{tool.data.name}</a>
+            </div>
+            <div class="tool-tagline">{tool.data.tagline}</div>
+            <div class="tool-meta">
+              <span>{formatDate(tool.data.date)}</span>
+              <span>·</span>
+              <span>{calcReadingTime(tool.body)} min read</span>
+            </div>
+          </div>
+          <div class="tool-rating">
+            <span class="rating-score">{avgRating}</span>
+          </div>
+        </article>
+      );
+    })}
+    {toolsInCategory.length === 0 && (
+      <p style="text-align:center;color:var(--c-text-3);padding:var(--space-2xl) 0">
+        No reviews yet in this category — check back soon!
+      </p>
+    )}
+  </div>
+
+  <p style="margin-top:var(--space-xl)">
+    <a href="/">← Back to all categories</a>
+  </p>
+</BaseLayout>

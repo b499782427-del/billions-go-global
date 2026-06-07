@@ -3,3 +3,5 @@ node_modules/
 .sshkey.pub
 .serve/
 .DS_Store
+.astro/
+dist/

@@ -1,0 +1,42 @@
+<!-- Terms of Service -->
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import type { Crumb } from '../components/seo/BreadcrumbSchema.astro';
+
+const breadcrumbs: Crumb[] = [{ name: 'Home', url: '/' }, { name: 'Terms', url: '/terms/' }];
+---
+<BaseLayout
+  title="Terms of Service"
+  description="AI Tools Review Hub terms of service."
+  path="/terms/"
+  breadcrumbs={breadcrumbs}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span><span>Terms</span>
+  </nav>
+
+  <h1>Terms of Service</h1>
+  <p style="color:var(--c-text-3);margin-top:var(--space-sm)">
+    <em>Last updated: June 1, 2026</em>
+  </p>
+
+  <div class="post-content" style="margin-top:var(--space-xl)">
+    <h2>1. Acceptance</h2>
+    <p>By accessing this website, you accept these terms. If you disagree, please do not use the site.</p>
+
+    <h2>2. Content</h2>
+    <p>All content is for informational purposes only. We make no guarantees about the accuracy or completeness of any information. Tool features, pricing, and availability change — verify with the vendor before purchasing.</p>
+
+    <h2>3. Affiliate Disclosure</h2>
+    <p>This site participates in affiliate programs. Links may result in commission payments at no additional cost to you. See our <a href="/affiliate-disclosure/">Affiliate Disclosure</a>.</p>
+
+    <h2>4. Intellectual Property</h2>
+    <p>All original content (text, ratings, structure) is our property. Tool names, logos, and trademarks belong to their respective owners.</p>
+
+    <h2>5. Limitation of Liability</h2>
+    <p>We are not liable for any damages arising from the use of this site or any linked third-party products.</p>
+
+    <h2>6. Contact</h2>
+    <p>Legal inquiries: <strong>info@saassavvyhub.com</strong></p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,47 @@
+<!-- About Page -->
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import type { Crumb } from '../components/seo/BreadcrumbSchema.astro';
+
+const breadcrumbs: Crumb[] = [{ name: 'Home', url: '/' }, { name: 'About', url: '/about/' }];
+---
+<BaseLayout
+  title="About AI Tools Review Hub"
+  description="We help you find the best AI tools through honest, in-depth reviews and comparisons. No sponsored fluff — just real testing."
+  path="/about/"
+  breadcrumbs={breadcrumbs}
+>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span><span>About</span>
+  </nav>
+
+  <h1>About AI Tools Review Hub</h1>
+
+  <div class="post-content" style="max-width:720px;margin-top:var(--space-xl)">
+    <h2>Who We Are</h2>
+    <p>
+      We're a small team of AI enthusiasts who spend our days testing AI tools so you don't have to.
+      Our mission: help you find the right AI software for your workflow — without the marketing fluff.
+    </p>
+
+    <h2>How We Review</h2>
+    <p>
+      Every tool we review goes through hands-on testing. We evaluate features, pricing, ease of use,
+      and real-world performance. Our ratings are based on actual usage — never on vendor relationships.
+    </p>
+
+    <h2>How We Make Money</h2>
+    <p>
+      Some links on this site are affiliate links. If you click and make a purchase, we may earn a
+      commission — at no extra cost to you. This doesn't influence our reviews. Tools we recommend
+      earn their spot through quality, not through payments.
+    </p>
+    <p>Read our full <a href="/affiliate-disclosure/">affiliate disclosure</a> for details.</p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions, corrections, or tool suggestions? Email us at
+      <strong>info@saassavvyhub.com</strong>. We read every message.
+    </p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,22 @@
+<!-- Homepage Category Grid -->
+---
+import { getAllCategorySlugs } from '../../lib/utils';
+import { categoryMap } from '../../content/config';
+
+const slugs = getAllCategorySlugs();
+const categories = slugs.map(slug => ({ slug, ...categoryMap[slug] }));
+---
+<section class="section" id="categories">
+  <div class="section-header">
+    <h2 class="section-title">Browse by Category</h2>
+  </div>
+  <div class="category-grid">
+    {categories.map(cat => (
+      <a href={`/categories/${cat.slug}/`} class="category-card">
+        <span class="icon">{cat.icon}</span>
+        <span class="name">{cat.name}</span>
+        <span class="count">View tools →</span>
+      </a>
+    ))}
+  </div>
+</section>

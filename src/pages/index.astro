@@ -1,0 +1,21 @@
+<!-- Homepage -->
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import CategoryGrid from '../components/home/CategoryGrid.astro';
+import ToolCardList from '../components/home/ToolCardList.astro';
+import type { Crumb } from '../components/seo/BreadcrumbSchema.astro';
+
+const breadcrumbs: Crumb[] = [{ name: 'Home', url: '/' }];
+---
+<BaseLayout
+  title="Best AI Tools Reviews & Recommendations"
+  description="Expert reviews, honest comparisons, and curated AI tool recommendations. Find the best AI writing, coding, voice, design, and automation tools."
+  path="/"
+  ogType="website"
+  breadcrumbs={breadcrumbs}
+>
+  <Hero />
+  <CategoryGrid />
+  <ToolCardList />
+</BaseLayout>

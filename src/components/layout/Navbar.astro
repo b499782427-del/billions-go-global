@@ -1,0 +1,25 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo">AI<span>Tools</span>Review</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Home</a>
+      <a href="/categories/ai-writing/">AI Writing</a>
+      <a href="/categories/ai-coding/">AI Coding</a>
+      <a href="/categories/ai-agent/">AI Agent</a>
+      <a href="/categories/ai-design/">AI Design</a>
+      <a href="/categories/ai-video/">AI Video</a>
+      <a href="/categories/ai-voice/">AI Voice</a>
+      <a href="/categories/ai-automation/">Automation</a>
+      <a href="/categories/ai-marketing/">Marketing</a>
+      <a href="/about/">About</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Minimal JS — only mobile nav toggle. Stripped to 2 lines.
+  const b=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  b?.addEventListener('click',()=>{l?.classList.toggle('open');b.textContent=l?.classList.contains('open')?'✕':'☰';});
+</script>
